@@ -6,10 +6,11 @@ using namespace std;
 Heap::Heap(int newHeapValue) {
     this->append(newHeapValue);
 }
+
 Heap::Heap() {}
 
 Heap::~Heap() {
-    delete [] this->heapValues;
+    delete[] this->heapValues;
 }
 
 Heap::Heap(const Heap &newHeapValue) {
@@ -41,14 +42,14 @@ void Heap::append(int newHeapValue) {
 void Heap::appendByConstruct(int *dataToSave) {
     this->heapValues = new int[this->heapSize];
 
-    for (int i = 0; i < this->heapSize; i++ ) {
+    for (int i = 0; i < this->heapSize; i++) {
 
         this->heapValues[i] = dataToSave[i];
     }
 }
 
 void Heap::rebuildHeapAfterInsert() {
-    int tmpHepSize = this->heapSize -1;
+    int tmpHepSize = this->heapSize - 1;
 
     while (tmpHepSize != 0 && this->heapValues[parent(tmpHepSize)] > this->heapValues[tmpHepSize]) {
         this->swap(this->heapValues[tmpHepSize], this->heapValues[parent(tmpHepSize)]);
@@ -56,8 +57,7 @@ void Heap::rebuildHeapAfterInsert() {
     }
 }
 
-void Heap::rebuildHeapAfterDeleteMin(int index)
-{
+void Heap::rebuildHeapAfterDeleteMin(int index) {
     int leftNodeValue = left(index);
     int rightNodeValue = right(index);
     int smallestValueInHeap = index;
@@ -70,8 +70,7 @@ void Heap::rebuildHeapAfterDeleteMin(int index)
         smallestValueInHeap = rightNodeValue;
     }
 
-    if (smallestValueInHeap != index)
-    {
+    if (smallestValueInHeap != index) {
         this->swap(this->heapValues[index], this->heapValues[smallestValueInHeap]);
         rebuildHeapAfterDeleteMin(smallestValueInHeap);
     }
@@ -93,14 +92,14 @@ int Heap::dropMin() {
 
         return root;
     } else {
-        cout <<"Kopiec jest pusty" <<endl;
+        cout << "Kopiec jest pusty" << endl;
 
         return -1;
     }
 }
 
 void Heap::clear() {
-    delete [] this->heapValues;
+    delete[] this->heapValues;
     this->heapValues = nullptr;
     this->heapSize = 0;
 }
@@ -127,12 +126,12 @@ int Heap::parent(int i) {
 
 int Heap::left(int i) {
 
-    return (2*i + 1);
+    return (2 * i + 1);
 }
 
 int Heap::right(int i) {
 
-   return (2*i + 2);
+    return (2 * i + 2);
 }
 
 void Heap::swap(int &x, int &y) {
@@ -142,12 +141,12 @@ void Heap::swap(int &x, int &y) {
 }
 
 void Heap::removeByIndex(int index) {
-    int tmpSize = this->heapSize -1;
+    int tmpSize = this->heapSize - 1;
     if (tmpSize >= 0 && tmpSize >= index) {
         int *newTable = new int[tmpSize];
         int tmpIndex = 0;
 
-        for(int i = 0; i < tmpSize; i++) {
+        for (int i = 0; i < tmpSize; i++) {
             if (i == index) {
                 ++tmpIndex;
             }
@@ -167,13 +166,26 @@ void heapSort(Heap heap) {
     int tmpHeapSize = heap.getHeapLength();
 
     if (tmpHeapSize != 0) {
-        for(int i=0; i < tmpHeapSize; i++) {
+        for (int i = 0; i < tmpHeapSize; i++) {
             cout << heap.dropMin() << " ";
         }
 
-        cout<<endl;
+        cout << endl;
     } else {
-        cout <<"Kopiec jest pusty";
+        cout << "Kopiec jest pusty";
+    }
+}
+
+int *heapSortArray(Heap heap) {
+    int tmpHeapSize = heap.getHeapLength();
+
+    if (tmpHeapSize != 0) {
+        int *array = new int[tmpHeapSize];
+        for (int i = 0; i < tmpHeapSize; i++) {
+            array[i] = heap.dropMin();
+        }
+
+        return array;
     }
 }
 

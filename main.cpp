@@ -3,14 +3,36 @@
 using namespace std;
 
 int main() {
-    Heap test = Heap(9);
-    test.append(8);
-    test.append(1);
-    test.append(1);
-    test.append(1);
-    test.showArray();
+    Heap minHeap = Heap();
+    minHeap.append(8);
+    minHeap.append(1);
+    minHeap.append(5);
+    minHeap.append(2);
+    minHeap.append(9);
+    minHeap.append(4);
+    minHeap.append(2);
+    minHeap.append(7);
+    minHeap.append(1);
 
-    test.showArray();
+    cout << "Przykladowy kopiec" << endl;
+    minHeap.showArray();
+
+    int *test = heapSortArray(minHeap);
+
+    cout << "Usuwanie po index'ie" << endl;
+    minHeap.removeByIndex(2);
+    minHeap.showArray();
+
+    cout << "Posortowane dane ";
+    heapSort(minHeap);
+    cout << endl;
+
+    cout <<"Ilosc elementow w kopcu " << minHeap.getHeapLength() << endl;
+
+    cout <<"Czyszczenie kopca" << endl;
+    minHeap.clear();
+
+
 
     return 0;
 }

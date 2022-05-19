@@ -32,4 +32,5 @@ public:
 
 
 void heapSort(Heap heap);
+int * heapSortArray(Heap heap);
 #endif
