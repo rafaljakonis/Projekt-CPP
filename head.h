@@ -8,9 +8,9 @@ class Heap {
     int heapSize = 0;
     int *heapValues = nullptr;
 
-    int parent(int i);
-    int left(int i);
-    int right(int i);
+    int nodeParent(int i);
+    int leftNode(int i);
+    int rightNode(int i);
     void rebuildHeapAfterDeleteMin(int i);
     void rebuildHeapAfterInsert();
     void swap(int &x, int &y);

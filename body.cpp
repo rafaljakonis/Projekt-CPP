@@ -51,15 +51,15 @@ void Heap::appendByConstruct(int *dataToSave) {
 void Heap::rebuildHeapAfterInsert() {
     int tmpHepSize = this->heapSize - 1;
 
-    while (tmpHepSize != 0 && this->heapValues[parent(tmpHepSize)] > this->heapValues[tmpHepSize]) {
-        this->swap(this->heapValues[tmpHepSize], this->heapValues[parent(tmpHepSize)]);
-        tmpHepSize = parent(tmpHepSize);
+    while (tmpHepSize != 0 && this->heapValues[this->nodeParent(tmpHepSize)] > this->heapValues[tmpHepSize]) {
+        this->swap(this->heapValues[tmpHepSize], this->heapValues[this->nodeParent(tmpHepSize)]);
+        tmpHepSize = this->nodeParent(tmpHepSize);
     }
 }
 
 void Heap::rebuildHeapAfterDeleteMin(int index) {
-    int leftNodeValue = left(index);
-    int rightNodeValue = right(index);
+    int leftNodeValue = this->leftNode(index);
+    int rightNodeValue = this->rightNode(index);
     int smallestValueInHeap = index;
 
     if (leftNodeValue < this->heapSize && this->heapValues[leftNodeValue] < this->heapValues[index]) {
@@ -93,8 +93,6 @@ int Heap::dropMin() {
         return root;
     } else {
         cout << "Kopiec jest pusty" << endl;
-
-        return -1;
     }
 }
 
@@ -117,27 +115,29 @@ void Heap::showArray() {
 }
 
 int Heap::getHeapLength() {
+
     return this->heapSize;
 }
 
-int Heap::parent(int i) {
+int Heap::nodeParent(int i) {
+
     return (i - 1) / 2;
 }
 
-int Heap::left(int i) {
+int Heap::leftNode(int i) {
 
     return (2 * i + 1);
 }
 
-int Heap::right(int i) {
+int Heap::rightNode(int i) {
 
     return (2 * i + 2);
 }
 
 void Heap::swap(int &x, int &y) {
-    int temp = x;
+    int tempValue = x;
     x = y;
-    y = temp;
+    y = tempValue;
 }
 
 void Heap::removeByIndex(int index) {
